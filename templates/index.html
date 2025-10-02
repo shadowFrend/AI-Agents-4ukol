@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RL Grid Agent - Q-Learning Visualization</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🤖 Reinforcement Learning Grid Agent</h1>
+            <p class="subtitle">Q-Table Learning Visualization</p>
+        </header>
+
+        <div class="main-content">
+            <div class="left-panel">
+                <div class="control-panel">
+                    <h2>Control Panel</h2>
+
+                    <div class="control-group">
+                        <label for="gridSize">Grid Size:</label>
+                        <input type="number" id="gridSize" min="3" max="10" value="5">
+                    </div>
+
+                    <div class="control-group">
+                        <label for="episodes">Training Episodes:</label>
+                        <input type="number" id="episodes" min="10" max="1000" value="100" step="10">
+                    </div>
+
+                    <div class="button-group">
+                        <button id="initBtn" class="btn btn-primary">Initialize Environment</button>
+                        <button id="trainBtn" class="btn btn-success" disabled>Train Agent</button>
+                        <button id="evaluateBtn" class="btn btn-info" disabled>Evaluate Agent</button>
+                    </div>
+                </div>
+
+                <div class="stats-panel">
+                    <h2>Statistics</h2>
+                    <div class="stat-item">
+                        <span class="stat-label">Total Episodes:</span>
+                        <span id="totalEpisodes" class="stat-value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Current Epsilon:</span>
+                        <span id="currentEpsilon" class="stat-value">1.00</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Last Reward:</span>
+                        <span id="lastReward" class="stat-value">-</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Goal Reached:</span>
+                        <span id="goalReached" class="stat-value">-</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="center-panel">
+                <div class="grid-container">
+                    <h2>Environment Grid</h2>
+                    <div id="grid" class="grid"></div>
+                    <div class="legend">
+                        <span class="legend-item"><span class="legend-color start"></span> Start</span>
+                        <span class="legend-item"><span class="legend-color goal"></span> Goal</span>
+                        <span class="legend-item"><span class="legend-color obstacle"></span> Obstacle</span>
+                        <span class="legend-item"><span class="legend-color agent"></span> Agent</span>
+                        <span class="legend-item"><span class="legend-color path"></span> Path</span>
+                    </div>
+                </div>
+
+                <div class="q-values-container">
+                    <h2>Q-Values Heatmap</h2>
+                    <div id="qValuesGrid" class="grid"></div>
+                    <div class="action-legend">
+                        <span>Actions: ↑ Up | → Right | ↓ Down | ← Left</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="right-panel">
+                <div class="chart-container">
+                    <h2>Training Progress</h2>
+                    <canvas id="rewardChart"></canvas>
+                </div>
+
+                <div class="info-panel">
+                    <h2>Algorithm Info</h2>
+                    <div class="info-content">
+                        <p><strong>Q-Learning Algorithm:</strong></p>
+                        <p class="formula">Q(s,a) ← Q(s,a) + α[r + γ·max Q(s',a') - Q(s,a)]</p>
+                        <ul>
+                            <li>α: Learning rate (0.1)</li>
+                            <li>γ: Discount factor (0.95)</li>
+                            <li>ε: Exploration rate (decaying)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
